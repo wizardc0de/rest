@@ -23,7 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-@MapperScan("cn.jason.mapper")
+
 //@EnableSwagger2
 @EnableConfigurationProperties(StorageProperties.class)
 public class Application {

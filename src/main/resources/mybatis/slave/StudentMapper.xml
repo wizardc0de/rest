@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jason.mapper.slave.StudentMapper">
+
+    <resultMap id="baseresultmap" type="cn.jason.model.Student">
+        <result column="sid" property="sid"/>
+        <result column="sage" property="sage"/>
+        <result column="sname" property="sname"/>
+        <result column="ssex" property="ssex"/>
+    </resultMap>
+    <!--查询-->
+    <select id="getStuById" resultType="cn.jason.model.Student" resultMap="baseresultmap" parameterType="string">
+    select *  from student where sid=#{sid};
+  </select>
+</mapper>

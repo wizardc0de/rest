@@ -1,6 +1,6 @@
 package cn.jason.service;
 
-import cn.jason.mapper.UserMapper;
+import cn.jason.mapper.master.UserMapper;
 import cn.jason.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public class UserService {
     private UserMapper userMapper;
 
     public User getUserInfo(String userId){
-        User user=userMapper.findUserInfo(userId);
+        User user = userMapper.findUserInfo(Integer.parseInt(userId));
         return user;
     }
 
@@ -27,4 +27,5 @@ public class UserService {
     public void insertUser(User user){
         userMapper.insertUser(user);
     }
+
 }

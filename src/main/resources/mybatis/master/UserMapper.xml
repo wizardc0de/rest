@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.jason.mapper.UserMapper">
+<mapper namespace="cn.jason.mapper.master.UserMapper">
 
+  <resultMap id="baseresultmap" type="cn.jason.model.User">
+    <result column="id" property="id"/>
+    <result column="age" property="age"/>
+    <result column="name" property="name"/>
+    <result column="password" property="password"/>
+  </resultMap>
   <!--查询-->
-  <select id="findUserInfo" resultType="cn.jason.model.User" parameterType="String">
+  <select id="findUserInfo" resultType="cn.jason.model.User" resultMap="baseresultmap" parameterType="int">
     select *  from user where id=#{userId};
   </select>
   <!--更新-->
