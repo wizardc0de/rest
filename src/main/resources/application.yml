@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8088
 
 mybatis:
   type-aliases-packages: cn.jason.model
@@ -9,19 +9,17 @@ spring:
     username: root
     password: 1234
     driver-class-name: com.mysql.jdbc.Driver
-
   datasource2:
     url: jdbc:mysql://127.0.0.1:3306/test2?useUnicode=true&characterEncoding=gbk&zeroDateTimeBehavior=convertToNull
     username: root
     password: 1234
     driver-class-name: com.mysql.jdbc.Driver
-  servlet:
-    multipart:
-      max-file-size: 10240KB
-      max-request-size: 10240KB
+
 logging:
   level:
     cn.jason.mapper: DEBUG
 rest:
   multiDs:
     open: true
+  upload:
+    dir: upload-dir

@@ -1,7 +1,8 @@
 package cn.jason.controller;
 
+import cn.jason.storage.NoFileSelectException;
 import cn.jason.storage.StorageFileNotFoundException;
-import cn.jason.storage.StorageService;
+import cn.jason.service.StorageService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -53,6 +54,9 @@ public class FileUploadController {
     @ApiOperation(value = "处理文件")
     @RequestMapping(value = "/",method = RequestMethod.POST)
     public String handelFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes){
+        if ("".equals(file.getOriginalFilename())) {
+            throw new NoFileSelectException("请选择文件");
+        }
         storageService.store(file);
         redirectAttributes.addFlashAttribute("message", " you successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:/";

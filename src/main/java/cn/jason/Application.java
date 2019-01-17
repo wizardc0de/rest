@@ -1,31 +1,20 @@
 package cn.jason;
 
-import cn.jason.storage.StorageProperties;
-import cn.jason.storage.StorageService;
+import cn.jason.service.StorageService;
 
-
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.annotation.MapperScan;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import javax.sql.DataSource;
+import javax.servlet.MultipartConfigElement;
 
 @SpringBootApplication
 
 //@EnableSwagger2
-@EnableConfigurationProperties(StorageProperties.class)
+//@EnableConfigurationProperties(StorageProperties.class)
 public class Application {
 
     /**
@@ -42,4 +31,12 @@ public class Application {
             storageService.init();
         };
      }
+
+    @Bean
+    public MultipartConfigElement configElement() {
+        MultipartConfigFactory multipartConfig = new MultipartConfigFactory();
+        multipartConfig.setMaxFileSize("102400KB");
+        multipartConfig.setMaxRequestSize("102400KB");
+        return multipartConfig.createMultipartConfig();
+    }
 }

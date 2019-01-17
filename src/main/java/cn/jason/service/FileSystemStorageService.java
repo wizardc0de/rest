@@ -1,7 +1,10 @@
-package cn.jason.storage;
+package cn.jason.service;
 
+import cn.jason.service.StorageService;
+import cn.jason.storage.StorageException;
+import cn.jason.storage.StorageFileNotFoundException;
+import cn.jason.storage.StorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
