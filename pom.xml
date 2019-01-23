@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.7player.framework</groupId>
-    <artifactId>sbm</artifactId>
+    <artifactId>rest</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
@@ -128,6 +128,5 @@
             <url>https://repo.spring.io/libs-release</url>
         </pluginRepository>
     </pluginRepositories>
-
 
 </project>

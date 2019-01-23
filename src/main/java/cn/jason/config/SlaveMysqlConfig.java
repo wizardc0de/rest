@@ -4,6 +4,8 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -15,29 +17,43 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = "cn.jason.mapper")
-@ConditionalOnProperty(prefix = "rest.multiDs", name = "open", havingValue = "true")
+@MapperScan(basePackages = "cn.jason.mapper.slave", sqlSessionFactoryRef = "slaveSqlsessionFactory")
 public class SlaveMysqlConfig {
+    @Value("${spring.datasource2.url}")
+    private String url;
+
+    @Value("${spring.datasource2.username}")
+    private String user;
+
+    @Value("${spring.datasource2.password}")
+    private String password;
+
+    @Value("${spring.datasource2.driver-class-name}")
+    private String driverClass;
 
     @Bean(name = "slaveDs")
-    @ConfigurationProperties(prefix = "spring.datasource2")
     public DataSource dataSource() {
+        DruidDataSource slaveDs = new DruidDataSource();
+        slaveDs.setUrl(url);
+        slaveDs.setUsername(user);
+        slaveDs.setPassword(password);
+        slaveDs.setDriverClassName(driverClass);
         System.out.println("加载slaveDs");
-        return new DruidDataSource();
+        return slaveDs;
     }
 
 
-    @Bean
-    public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
+    @Bean(name = "slaveSqlsessionFactory")
+    public SqlSessionFactory sqlSessionFactoryBean(@Qualifier(value = "slaveDs") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(dataSource());
+        sqlSessionFactoryBean.setDataSource(dataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mybatis/*/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:mybatis/slave/*.xml"));
         return sqlSessionFactoryBean.getObject();
     }
 
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(dataSource());
+    @Bean(name = "slaveTransactionManager")
+    public PlatformTransactionManager transactionManager(@Qualifier(value = "slaveDs") DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 }

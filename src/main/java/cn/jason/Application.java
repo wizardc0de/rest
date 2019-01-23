@@ -13,8 +13,6 @@ import javax.servlet.MultipartConfigElement;
 
 @SpringBootApplication
 
-//@EnableSwagger2
-//@EnableConfigurationProperties(StorageProperties.class)
 public class Application {
 
     /**

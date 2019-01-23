@@ -10,7 +10,7 @@ public class StudentService {
     @Autowired
     private StudentMapper studentMapper;
 
-    public Student getStuById(String sid) {
+    public Student getStuById(int sid) {
         Student stu = studentMapper.getStuById(sid);
         return stu;
     }

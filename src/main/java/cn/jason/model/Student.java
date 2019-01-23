@@ -3,7 +3,7 @@ package cn.jason.model;
 import java.util.Date;
 
 public class Student {
-    private String sid;
+    private int sid;
 
     private String sname;
 
@@ -11,11 +11,11 @@ public class Student {
 
     private String ssex;
 
-    public String getSid() {
+    public int getSid() {
         return sid;
     }
 
-    public void setSid(String sid) {
+    public void setSid(int sid) {
         this.sid = sid;
     }
 

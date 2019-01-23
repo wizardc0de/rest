@@ -9,7 +9,7 @@
         <result column="ssex" property="ssex"/>
     </resultMap>
     <!--查询-->
-    <select id="getStuById" resultType="cn.jason.model.Student" resultMap="baseresultmap" parameterType="string">
-    select *  from student where sid=#{sid};
-  </select>
+    <select id="getStuById" resultMap="baseresultmap" parameterType="int">
+        select * from student where sid=#{sid};
+    </select>
 </mapper>

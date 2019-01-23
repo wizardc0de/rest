@@ -19,7 +19,5 @@ logging:
   level:
     cn.jason.mapper: DEBUG
 rest:
-  multiDs:
-    open: true
   upload:
     dir: upload-dir

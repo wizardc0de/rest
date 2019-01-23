@@ -33,7 +33,7 @@ public class CtrlInterceptor {
         }
         methodSignature = (MethodSignature) signature;
         Object o = joinPoint.getTarget();
-        String className = o.getClass().getName();
+        String className = o.getClass().getSimpleName();
         Method me = o.getClass().getMethod(methodSignature.getName(), methodSignature.getParameterTypes());
         Object[] args = joinPoint.getArgs();
         StringBuilder sb = new StringBuilder();
