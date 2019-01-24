@@ -1,15 +1,16 @@
 package cn.jason;
 
+import cn.jason.model.User;
 import cn.jason.service.StorageService;
 
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 
-import javax.servlet.MultipartConfigElement;
+import java.util.Date;
+import java.util.Random;
 
 @SpringBootApplication
 
@@ -23,18 +24,10 @@ public class Application {
     }
 
     @Bean
-    CommandLineRunner init(StorageService storageService){
-        return (args)->{
+    CommandLineRunner init(StorageService storageService) {
+        return (args) -> {
             storageService.deleteAll();
             storageService.init();
         };
-     }
-
-    @Bean
-    public MultipartConfigElement configElement() {
-        MultipartConfigFactory multipartConfig = new MultipartConfigFactory();
-        multipartConfig.setMaxFileSize("102400KB");
-        multipartConfig.setMaxRequestSize("102400KB");
-        return multipartConfig.createMultipartConfig();
     }
 }

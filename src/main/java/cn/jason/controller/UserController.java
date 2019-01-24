@@ -32,22 +32,6 @@ public class UserController {
         }
         return result;
     }
-  /*  @RequestMapping(value = "/sel",method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String, Object> sel(@RequestParam(value = "low")int low ,@RequestParam(value = "high")int high  ) {
-        Map<String,Object> result =new HashMap<>();
-        Map<String,Object> params =new HashMap<>();
-        params.put("low",low);
-        params.put("high",high);
-        try{
-            List<User> users = userService.selectUsers(params);
-            result.put("status",0);
-            result.put("userDetail",users);
-        }catch (Exception e) {
-            result.put("status",1);
-        }
-        return result;
-    }*/
 
     @RequestMapping("/del")
     @ResponseBody

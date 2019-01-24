@@ -1,5 +1,7 @@
 server:
   port: 8088
+  ssl:
+    enabled: false
 
 mybatis:
   type-aliases-packages: cn.jason.model
@@ -14,7 +16,10 @@ spring:
     username: root
     password: 1234
     driver-class-name: com.mysql.jdbc.Driver
-
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
 logging:
   level:
     cn.jason.mapper: DEBUG
