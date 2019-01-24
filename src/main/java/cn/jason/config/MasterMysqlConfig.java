@@ -4,6 +4,8 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -23,33 +25,28 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan(basePackages = "cn.jason.mapper.master", sqlSessionFactoryRef = "masterSqlSessionfactory")
 public class MasterMysqlConfig {
-    @Value("${spring.datasource.url}")
-    private String url;
 
-    @Value("${spring.datasource.username}")
-    private String user;
+    private Logger logger = LoggerFactory.getLogger(MasterMysqlConfig.class);
 
-    @Value("${spring.datasource.password}")
-    private String password;
-
-    @Value("${spring.datasource.driver-class-name}")
-    private String driverClass;
-
+    /**
+     * primary 表明首先使用此bean
+     *
+     * @return
+     */
     @Bean(name = "masterDs")
     @Primary
+    @ConfigurationProperties(value = "spring.datasource")
     public DataSource dataSource() {
         DruidDataSource masterDs = new DruidDataSource();
-        masterDs.setUrl(url);
-        masterDs.setUsername(user);
-        masterDs.setPassword(password);
-        masterDs.setDriverClassName(driverClass);
-        System.out.println("加载masterDs");
+        logger.info("加载masterDs");
         return masterDs;
     }
 
     @Bean(name = "masterSqlSessionfactory")
     public SqlSessionFactory sqlSessionFactoryBean(@Qualifier(value = "masterDs") DataSource dataSource) throws Exception {
+        //调用默认的构造方法
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+
         sqlSessionFactoryBean.setDataSource(dataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:mybatis/master/*.xml"));
@@ -58,7 +55,8 @@ public class MasterMysqlConfig {
 
     @Bean(name = "masterTransactionManager")
     public PlatformTransactionManager transactionManager(@Qualifier(value = "masterDs") DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
+        PlatformTransactionManager platformTransactionManager = new DataSourceTransactionManager(dataSource);
+        return platformTransactionManager;
     }
 
 }
