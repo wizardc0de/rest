@@ -4,6 +4,8 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -19,26 +21,13 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan(basePackages = "cn.jason.mapper.slave", sqlSessionFactoryRef = "slaveSqlsessionFactory")
 public class SlaveMysqlConfig {
-    @Value("${spring.datasource2.url}")
-    private String url;
 
-    @Value("${spring.datasource2.username}")
-    private String user;
-
-    @Value("${spring.datasource2.password}")
-    private String password;
-
-    @Value("${spring.datasource2.driver-class-name}")
-    private String driverClass;
-
+    private Logger logger = LoggerFactory.getLogger(SlaveMysqlConfig.class);
     @Bean(name = "slaveDs")
+    @ConfigurationProperties(value = "spring.datasource2")
     public DataSource dataSource() {
         DruidDataSource slaveDs = new DruidDataSource();
-        slaveDs.setUrl(url);
-        slaveDs.setUsername(user);
-        slaveDs.setPassword(password);
-        slaveDs.setDriverClassName(driverClass);
-        System.out.println("加载slaveDs");
+        logger.info("加载了slaveDs");
         return slaveDs;
     }
 
