@@ -12,7 +12,7 @@ spring:
     password: 1234
     driver-class-name: com.mysql.jdbc.Driver
   datasource2:
-    url: jdbc:mysql://127.0.0.1:3306/test2?useUnicode=true&characterEncoding=gbk&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=gbk&zeroDateTimeBehavior=convertToNull
     username: root
     password: 1234
     driver-class-name: com.mysql.jdbc.Driver
