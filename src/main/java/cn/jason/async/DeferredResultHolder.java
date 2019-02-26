@@ -9,7 +9,7 @@ import java.util.Map;
 @Component
 public class DeferredResultHolder {
 
-    private Map<String, DeferredResult<Map<String ,Object>>> map=new HashMap<String ,DeferredResult<Map<String ,Object>>>();
+    private Map<String, DeferredResult<Map<String ,Object>>> map=new HashMap<>();
 
     public Map<String, DeferredResult<Map<String ,Object>>> getMap() {
         return map;

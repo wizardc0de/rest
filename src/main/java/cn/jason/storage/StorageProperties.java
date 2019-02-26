@@ -15,7 +15,6 @@ public class StorageProperties {
     private String location;
 
     public String getLocation() {
-        System.out.println(location);
         return location;
     }
 }

@@ -9,4 +9,5 @@ public interface UserMapper extends BaseMapper<User> {
     public void updateUser(User user);
     public void deleteUser(String id);
     public void insertUser(User user);
+    public User findUserByUserName(String userName);
 }

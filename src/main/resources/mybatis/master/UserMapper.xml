@@ -12,7 +12,10 @@
   <select id="findUserInfo" resultType="cn.jason.model.User" resultMap="baseresultmap" parameterType="int">
     select *  from user where id=#{userId};
   </select>
-  <!--更新-->
+    <select id="findUserByUserName" resultMap="baseresultmap">
+      select * from user where name=#{userName}
+    </select>
+    <!--更新-->
   <update id="updateUser" parameterType="cn.jason.model.User">
     update user set name=#{name},age=#{age},password =#{password}
   </update>
