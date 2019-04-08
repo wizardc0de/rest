@@ -1,6 +1,5 @@
 package cn.jason.service;
 
-import cn.jason.service.StorageService;
 import cn.jason.storage.StorageException;
 import cn.jason.storage.StorageFileNotFoundException;
 import cn.jason.storage.StorageProperties;

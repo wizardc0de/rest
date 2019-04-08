@@ -2,7 +2,6 @@ server:
   port: 8088
   ssl:
     enabled: false
-
 mybatis:
   type-aliases-packages: cn.jason.model
 
@@ -24,7 +23,9 @@ spring:
 
 logging:
   level:
-    cn.jason.mapper: DEBUG
+    cn:
+      jason:
+        mapper: DEBUG
 rest:
   upload:
     dir: upload-dir
